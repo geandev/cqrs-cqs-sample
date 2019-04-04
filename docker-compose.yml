@@ -1,2 +1,17 @@
 version: 3
-
+services:
+  write-api:
+    build: ./src/WriteApi
+  read-api:
+    build: ./src/ReadApi
+  write-database:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      SA_PASSWORD: "setuptalk"
+      ACCEPT_EULA: "cqrs"
+    ports:
+      - 27017:27017
+  read-database:
+    image: mongo:3.0
+    ports:
+      - 27017:27017
