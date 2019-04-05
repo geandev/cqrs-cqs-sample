@@ -1,4 +1,4 @@
-version: 3
+version: '3'
 services:
   write-api:
     build: ./src/WriteApi
@@ -7,10 +7,10 @@ services:
   write-database:
     image: "mcr.microsoft.com/mssql/server"
     environment:
-      SA_PASSWORD: "setuptalk"
-      ACCEPT_EULA: "cqrs"
+      SA_PASSWORD: "CqRs@setuptalk2019"
+      ACCEPT_EULA: "Y"
     ports:
-      - 27017:27017
+      - 1433:1433
   read-database:
     image: mongo:3.0
     ports:

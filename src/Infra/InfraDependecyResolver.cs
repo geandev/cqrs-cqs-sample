@@ -9,14 +9,15 @@ namespace Infra
         public static void AddSqlInfra(this IServiceCollection services)
         {
             services.AddDbContext<Context>((serviceProvider, options) =>
-                options.UseSqlServer("Server=write-database;Database=WriteDatabase;User Id=setuptalk;Password=cqrs;"));
+                options.UseSqlServer("Server=192.168.99.100;Database=WriteDatabase;User Id=sa;Password=CqRs@setuptalk2019;", opt => opt.MigrationsAssembly("WriteApi")));
+
             services.AddScoped<Ef.Repositories.CustomerRepository>();
 
         }
 
         public static void AddMongoInfra(this IServiceCollection services)
         {
-            services.AddScoped(s => new Mongo.Repositories.CustomerRepository("mongodb://read-databse:27017", "ReadDatabase"));
+            services.AddScoped(s => new Mongo.Repositories.CustomerRepository("mongodb://192.168.99.100:27017", "ReadDatabase"));
         }
     }
 }

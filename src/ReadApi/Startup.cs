@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using Infra;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ReadApi
@@ -8,10 +8,13 @@ namespace ReadApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddMongoInfra();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -3,16 +3,22 @@ using System.Threading.Tasks;
 using Core;
 using Core.Models;
 using Microsoft.EntityFrameworkCore;
+using ReadStack = Infra.Mongo.Repositories;
 
 
 namespace Infra.Ef.Repositories
 {
     public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
+        private readonly ReadStack.CustomerRepository _customerRepository;
         private readonly Context _context;
 
-        public CustomerRepository(Context context) : base(context)
+        public CustomerRepository(
+            ReadStack.CustomerRepository customerRepository,
+            Context context
+            ) : base(context)
         {
+            _customerRepository = customerRepository;
             _context = context;
         }
 
@@ -24,9 +30,11 @@ namespace Infra.Ef.Repositories
                .ToListAsync();
         }
 
-        public Task SaveCustomerAsync(Customer customer)
+        public async Task SaveCustomerAsync(Customer customer)
         {
-            return _context.AddAsync(customer).ContinueWith(t => _context.SaveChangesAsync());
+            await _context.AddAsync(customer);
+            await _context.SaveChangesAsync();
+            await _customerRepository.SaveCustomerAsync(customer);
         }
     }
 }

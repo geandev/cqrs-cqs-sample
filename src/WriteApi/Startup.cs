@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using Infra;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WriteApi
@@ -8,10 +8,14 @@ namespace WriteApi
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddMongoInfra();
+            services.AddSqlInfra();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

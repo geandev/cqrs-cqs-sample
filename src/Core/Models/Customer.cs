@@ -7,6 +7,6 @@ namespace Core.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public IEnumerable<Order> Orders { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }

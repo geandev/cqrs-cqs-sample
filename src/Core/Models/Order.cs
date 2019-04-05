@@ -6,6 +6,6 @@ namespace Core.Models
     {
         public int Id { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }
